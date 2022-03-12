@@ -1,26 +1,47 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="background">
+    <div class="contauiner">
+      <Logo class="logo" title="the.weather" />
+      <Weather class="weather" />
+    </div>
+    <Menu class="menu" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Logo from "./components/Logo.vue";
+import Weather from "./components/Weather.vue";
+import Menu from "./components/Menu.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Logo,
+    Weather,
+    Menu,
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss" scoped>
+.background {
+  position: relative;
+  display: flex;
+  background: url(./assets/images/rainy.jpg) no-repeat center center fixed;
+  height: 100vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  .contauiner {
+    display: flex;
+    flex-direction: column;
+    margin: 60px 0 60px 120px;
+
+    .weather {
+      margin: auto 0 0 0;
+    }
+  }
 }
 </style>
