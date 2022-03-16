@@ -2,8 +2,13 @@
   <div class="container">
     <form class="search" action="" method="">
       <div class="search_conainer">
-        <input type="text" required="" placeholder="Another Location" />
-        <a href="#">
+        <input
+          type="text"
+          placeholder="Another Location"
+          v-model="query"
+          v-on:keyup.enter="sendCity"
+        />
+        <a href="#" @click="sendCity">
           <img src="../assets/icons/search.svg" alt="Search" />
         </a>
       </div>
@@ -32,6 +37,7 @@ export default {
   name: "Menu",
   data() {
     return {
+      query: "",
       cities: [
         {
           name: "Birmingham",
@@ -66,11 +72,20 @@ export default {
       ],
     };
   },
+  props: {
+    weather: Object,
+  },
+  methods: {
+    sendCity() {
+      this.$emit("sendCity", this.query);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
+  position: absolute;
   width: 33%;
   height: 100vh;
   display: flex;

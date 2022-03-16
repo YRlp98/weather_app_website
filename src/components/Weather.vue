@@ -1,13 +1,15 @@
 <template>
   <div class="weather">
-    <h1 class="temperature">08°</h1>
+    <h1 class="temperature">
+      {{ Math.round(weather ? weather.data.main.temp : "08") }}°
+    </h1>
     <div class="city_date">
-      <h2 class="city">London</h2>
+      <h2 class="city">{{ weather ? weather.data.name : "London" }}</h2>
       <p class="date">06:09 - Sunday, 6 Oct '19</p>
     </div>
     <div class="icon_stats">
       <img class="icon" src="../assets/icons/rain.png" />
-      <p class="stats">Rainy</p>
+      <p class="stats">{{ weather ? weather.data.weather[0].main : "Rain" }}</p>
     </div>
   </div>
 </template>
@@ -15,6 +17,9 @@
 <script>
 export default {
   name: "Weather",
+  props: {
+    weather: Object,
+  },
 };
 </script>
 
