@@ -7,6 +7,7 @@
     <Menu
       class="menu"
       v-on:sendCity="fetchWeather($event)"
+      v-on:sendRecCity="fetchWeather($event)"
       :weather="this.weatherData"
     />
   </div>
@@ -41,11 +42,15 @@ export default {
   },
   methods: {
     async fetchWeather(updatedCity) {
-      this.city = updatedCity;
-      this.weatherData = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&APPID=${this.api_key}`
-      );
-      console.log("City: ", this.weatherData.data.name);
+      try {
+        this.city = updatedCity;
+        this.weatherData = await axios.get(
+          `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&APPID=${this.api_key}`
+        );
+        console.log("City: ", this.weatherData.data.name);
+      } catch (error) {
+        alert("City not found");
+      }
     },
   },
 };

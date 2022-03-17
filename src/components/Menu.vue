@@ -13,7 +13,12 @@
         </a>
       </div>
       <ul>
-        <li v-for="city in cities" :key="city.name">
+        <li
+          class="recCity"
+          v-for="city in cities"
+          :key="city.name"
+          @click="sendRecCity(city.name)"
+        >
           {{ city.name }}
         </li>
       </ul>
@@ -22,9 +27,21 @@
     <div class="details-container">
       <h1>Weather Details</h1>
       <ul>
-        <li v-for="detail in details" :key="detail">
-          {{ detail.name }}
-          <p>{{ detail.value }}</p>
+        <li>
+          Cloudy
+          <p>{{ weather ? weather.data.clouds.all : "86" }}%</p>
+        </li>
+        <li>
+          Humidity
+          <p>{{ weather ? weather.data.main.humidity : "62" }}%</p>
+        </li>
+        <li>
+          Wind
+          <p>{{ weather ? weather.data.wind.speed : "8" }}km/h</p>
+        </li>
+        <li>
+          Rain
+          <p>{{ weather ? checkRain() : "8" }}mm</p>
         </li>
       </ul>
     </div>
@@ -52,24 +69,6 @@ export default {
           name: "California",
         },
       ],
-      details: [
-        {
-          name: "Cloudy",
-          value: "86%",
-        },
-        {
-          name: "Humidity",
-          value: "62%",
-        },
-        {
-          name: "Wind",
-          value: "8km/h",
-        },
-        {
-          name: "Rain",
-          value: "8mm",
-        },
-      ],
     };
   },
   props: {
@@ -78,6 +77,17 @@ export default {
   methods: {
     sendCity() {
       this.$emit("sendCity", this.query);
+    },
+    sendRecCity(city) {
+      console.log(city);
+      this.$emit("sendRecCity", city);
+    },
+    checkRain() {
+      try {
+        return this.weather.data.rain["1h"];
+      } catch (error) {
+        return "0";
+      }
     },
   },
 };
@@ -149,6 +159,10 @@ export default {
         font-weight: 300;
         color: rgba(255, 255, 255, 0.6);
         margin-top: 35px;
+      }
+
+      .recCity {
+        cursor: pointer;
       }
     }
   }
