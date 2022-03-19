@@ -5,7 +5,11 @@
   >
     <div class="container">
       <Logo class="logo" title="the.weather" />
-      <Weather class="weather" :weather="this.weatherData" />
+      <Weather
+        class="weather"
+        :weather="this.weatherData"
+        :weatherId="this.weatherId"
+      />
     </div>
     <Menu
       class="menu"

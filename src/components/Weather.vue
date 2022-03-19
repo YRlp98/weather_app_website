@@ -1,15 +1,15 @@
 <template>
   <div class="weather">
     <h1 class="temperature">
-      {{ Math.round(weather ? weather.data.main.temp : "08") }}°
+      {{ Math.round(weather ? weather.data.main.temp : "00") }}°
     </h1>
     <div class="city_date">
-      <h2 class="city">{{ weather ? weather.data.name : "London" }}</h2>
+      <h2 class="city">{{ weather ? weather.data.name : "Location" }}</h2>
       <p class="date">{{ displayDate() }}</p>
     </div>
     <div class="icon_stats">
-      <img class="icon" src="../assets/icons/rain.png" />
-      <p class="stats">{{ weather ? weather.data.weather[0].main : "Rain" }}</p>
+      <img class="icon" :src="displayIcon(this.weatherId)" />
+      <p class="stats">{{ weather ? weather.data.weather[0].main : "-" }}</p>
     </div>
   </div>
 </template>
@@ -19,8 +19,29 @@ export default {
   name: "Weather",
   props: {
     weather: Object,
+    weatherId: Number,
   },
   methods: {
+    displayIcon(id) {
+      console.log("WeatherID: ", id);
+      if (id >= 200 && id <= 232) {
+        return require("../assets/icons/thunderstorm.svg");
+      } else if (id >= 300 && id <= 321) {
+        return require("../assets/icons/drizzle.svg");
+      } else if (id >= 500 && id <= 531) {
+        return require("../assets/icons/rain.svg");
+      } else if (id >= 600 && id <= 622) {
+        return require("../assets/icons/snow.svg");
+      } else if (id >= 701 && id <= 781) {
+        return require("../assets/icons/atmosphere.svg");
+      } else if (id === 800) {
+        return require("../assets/icons/clear.svg");
+      } else if (id >= 801 && id <= 804) {
+        return require("../assets/icons/clouds.svg");
+      } else {
+        return require("../assets/icons/default.svg");
+      }
+    },
     displayDate() {
       let days = [
         "Sunday",
@@ -89,13 +110,13 @@ export default {
   .icon_stats {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
+    align-items: flex-start;
+    margin-top: 5px;
     margin-left: 30px;
 
     .icon {
-      width: 38px;
-      height: 38px;
+      width: 54px;
+      height: 54px;
     }
 
     .stats {
