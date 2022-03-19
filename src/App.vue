@@ -91,12 +91,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media only screen and (max-width: 500px) {
-  .container {
-    display: none;
-  }
-}
-
 .background {
   position: relative;
   display: flex;
