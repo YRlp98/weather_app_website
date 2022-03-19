@@ -1,5 +1,8 @@
 <template>
-  <div class="background">
+  <div
+    class="background"
+    :style="{ backgroundImage: `url(${changeBackground(this.weatherId)})` }"
+  >
     <div class="container">
       <Logo class="logo" title="the.weather" />
       <Weather class="weather" :weather="this.weatherData" />
@@ -35,6 +38,7 @@ export default {
         "http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&APPID=a2f03a12f79f1530dcec0bab4ffc1faf",
       city: "",
       weatherData: null,
+      weatherId: null,
     };
   },
   props: {
@@ -47,9 +51,35 @@ export default {
         this.weatherData = await axios.get(
           `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&APPID=${this.api_key}`
         );
-        console.log("City: ", this.weatherData.data.name);
+        this.weatherId = this.weatherData.data.weather[0].id;
+        console.log(
+          "City: ",
+          this.weatherData.data.name,
+          "ID: ",
+          this.weatherId
+        );
       } catch (error) {
         alert("City not found");
+      }
+    },
+    changeBackground(id) {
+      console.log("WeatherID: ", id);
+      if (id >= 200 && id <= 232) {
+        return require("./assets/images/thunderstorm.jpg");
+      } else if (id >= 300 && id <= 321) {
+        return require("./assets/images/drizzle.jpg");
+      } else if (id >= 500 && id <= 531) {
+        return require("./assets/images/rain.jpg");
+      } else if (id >= 600 && id <= 622) {
+        return require("./assets/images/snow.jpg");
+      } else if (id >= 701 && id <= 781) {
+        return require("./assets/images/atmosphere.jpg");
+      } else if (id === 800) {
+        return require("./assets/images/clear.jpg");
+      } else if (id >= 801 && id <= 804) {
+        return require("./assets/images/clouds.jpg");
+      } else {
+        return require("./assets/images/default.jpg");
       }
     },
   },
@@ -66,8 +96,9 @@ export default {
 .background {
   position: relative;
   display: flex;
-  background: url(./assets/images/rainy.jpg) no-repeat center center fixed;
+  background: url(./assets/images/default.jpg) no-repeat center center fixed;
   height: 100vh;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
