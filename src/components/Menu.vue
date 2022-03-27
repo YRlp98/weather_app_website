@@ -104,6 +104,8 @@ export default {
   backdrop-filter: blur(15px) saturate(100%);
   -webkit-backdrop-filter: blur(15px) saturate(100%);
   background-color: rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+  overflow-x: hidden;
 
   .search {
     display: flex;
