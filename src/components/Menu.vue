@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <form class="search" action="" method="">
+    <form class="search" @submit.prevent="onSubmit">
       <div class="search_conainer">
         <input
           type="text"
           placeholder="Another Location"
           v-model="query"
-          v-on:keyup.enter="sendCity"
+          @keyup.enter="sendCity"
         />
         <a href="#" @click="sendCity">
           <img src="../assets/icons/search.svg" alt="Search" />
